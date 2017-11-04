@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="5dp"
+        android:orientation="horizontal"
+        android:weightSum="5">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:text="52"
+            android:textColor="@android:color/black"
+            android:background="#FFC7A9"
+            android:id="@+id/likes_news"
+            android:gravity="center"
+            android:layout_height="match_parent" />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_weight="3"
+            android:paddingBottom="5dp"
+            android:background="#EFEFEF"
+            android:orientation="vertical"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:text="Introduction to HTML Components"
+                android:layout_margin="5dp"
+                android:textColor="@android:color/black"
+                android:textSize="16sp"
+                android:id="@+id/title_news"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:layout_width="match_parent"
+                android:text="www.w3c.com"
+                android:id="@+id/url_news"
+                android:layout_marginBottom="5dp"
+                android:layout_marginLeft="5dp"
+                android:textSize="10sp"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:layout_width="match_parent"
+                android:text="12 minutes ago"
+                android:layout_marginLeft="5dp"
+                android:id="@+id/time_news"
+                android:textColor="@android:color/black"
+                android:textSize="10sp"
+                android:layout_height="wrap_content" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:background="#EFEFEF"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+            <TextView
+                android:layout_width="match_parent"
+                android:text="@string/comment_icon"
+                android:layout_margin="10dp"
+                android:textSize="16sp"
+                android:id="@+id/icon_comment"
+                android:gravity="center"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:layout_width="match_parent"
+                android:text="52"
+                android:gravity="center"
+                android:textColor="@android:color/black"
+                android:id="@+id/comments_news"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>

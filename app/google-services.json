@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "1030128917480",
+    "firebase_url": "https://urbanpiper-13d8b.firebaseio.com",
+    "project_id": "urbanpiper-13d8b",
+    "storage_bucket": "urbanpiper-13d8b.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1030128917480:android:f9a6d318061ff17b",
+        "android_client_info": {
+          "package_name": "com.example.jeet.urbanpiper"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1030128917480-6eubbmajis2dueleu2lj9pl9ocs11nhj.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.jeet.urbanpiper",
+            "certificate_hash": "303688c7f1e5568cf81c174da3591c8e2b1e6f00"
+          }
+        },
+        {
+          "client_id": "1030128917480-k84mvfm63mvg8b64sarovro9lro5pi9c.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDy04tWBavDgJgpk4OMSK9gJOaNdRqfEas"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1030128917480-k84mvfm63mvg8b64sarovro9lro5pi9c.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

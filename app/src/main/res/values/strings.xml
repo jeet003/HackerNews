@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">UrbanPiper</string>
+
+    <string name="btn_logout_from_google">Logout from Google</string>
+    <string name="btn_revoke_access">Revoke Access</string>
+    <string name="comment_icon">&#xf0e5;</string>
+    <string name="web_client">1030128917480-k84mvfm63mvg8b64sarovro9lro5pi9c.apps.googleusercontent.com</string>
+</resources>

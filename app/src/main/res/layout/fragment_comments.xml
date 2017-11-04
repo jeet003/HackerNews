@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <android.support.v7.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:id="@+id/comments_list"
+        android:scrollbars="vertical"
+        android:background="@android:color/white"
+        android:layout_height="match_parent">
+
+    </android.support.v7.widget.RecyclerView>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:id="@+id/empty_comments"
+        android:gravity="center"
+        android:visibility="gone"
+        android:textSize="16sp"
+        android:text="No comments to display"
+        android:layout_height="match_parent" />
+
+</LinearLayout>
