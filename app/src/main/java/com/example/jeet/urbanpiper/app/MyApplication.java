@@ -1,4 +1,4 @@
-package com.example.jeet.urbanpiper.App;
+package com.example.jeet.urbanpiper.app;
 
 /**
  * Created by jeet on 10/29/2017.
@@ -8,6 +8,10 @@ import android.app.Application;
 
 import io.realm.Realm;
 import io.realm.RealmConfiguration;
+
+/*
+Application class to initialize realm
+ */
 
 public class MyApplication extends Application {
 

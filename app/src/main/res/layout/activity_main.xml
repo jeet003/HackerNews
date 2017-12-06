@@ -6,7 +6,7 @@
     android:orientation="vertical"
     android:background="@android:color/white"
     android:layout_height="match_parent"
-    tools:context="com.example.jeet.urbanpiper.Activities.MainActivity">
+    tools:context="com.example.jeet.urbanpiper.activities.MainActivity">
 
     <include
         android:id="@+id/toolbar_newslist"

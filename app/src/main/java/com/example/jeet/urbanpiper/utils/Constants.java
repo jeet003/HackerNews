@@ -1,4 +1,4 @@
-package com.example.jeet.urbanpiper.Utils;
+package com.example.jeet.urbanpiper.utils;
 
 public class Constants {
 

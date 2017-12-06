@@ -1,17 +1,21 @@
-package com.example.jeet.urbanpiper.Utils;
+package com.example.jeet.urbanpiper.utils;
 
 import android.content.Context;
 import android.content.SharedPreferences;
 
+/*
+Custom Shared Preference manager class
+ */
+
 public class SharedPrefManager {
 
-    SharedPreferences sharedPreferences;
-    Context mContext;
+    private SharedPreferences sharedPreferences;
+    private Context mContext;
     // shared pref mode
-    int PRIVATE_MODE = 0;
+    private int PRIVATE_MODE = 0;
     // Shared preferences file name
     private static final String PREF_NAME = "sessionPref";
-    SharedPreferences.Editor editor;
+    private SharedPreferences.Editor editor;
 
     public SharedPrefManager (Context context) {
         mContext = context;

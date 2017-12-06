@@ -1,4 +1,4 @@
-package com.example.jeet.urbanpiper.Activities;
+package com.example.jeet.urbanpiper.activities;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -10,16 +10,16 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.widget.TextView;
 
-import com.example.jeet.urbanpiper.Adapter.ViewPagerAdapter;
-import com.example.jeet.urbanpiper.BackgroundServices.GetTopStories;
-import com.example.jeet.urbanpiper.Fragments.NewsDetailComments;
-import com.example.jeet.urbanpiper.Fragments.NewsDetailWebView;
-import com.example.jeet.urbanpiper.Interface.FragmentCommunicator;
-import com.example.jeet.urbanpiper.Interface.Volley;
-import com.example.jeet.urbanpiper.Models.CommentsModel;
-import com.example.jeet.urbanpiper.Models.NewsItem;
+import com.example.jeet.urbanpiper.adapter.ViewPagerAdapter;
+import com.example.jeet.urbanpiper.backgroundServices.GetTopStories;
+import com.example.jeet.urbanpiper.fragments.NewsDetailComments;
+import com.example.jeet.urbanpiper.fragments.NewsDetailWebView;
+import com.example.jeet.urbanpiper.interfaces.FragmentCommunicator;
+import com.example.jeet.urbanpiper.interfaces.Volley;
+import com.example.jeet.urbanpiper.models.CommentsModel;
+import com.example.jeet.urbanpiper.models.NewsItem;
 import com.example.jeet.urbanpiper.R;
-import com.example.jeet.urbanpiper.Utils.SharedPrefManager;
+import com.example.jeet.urbanpiper.utils.SharedPrefManager;
 
 import java.util.ArrayList;
 
@@ -27,6 +27,8 @@ import io.realm.RealmList;
 
 /**
  * Created by jeet on 10/28/17.
+ *
+ * Activity for displaying the detailed news along with their comments and webview to render the url
  */
 
 public class NewsDetail extends AppCompatActivity implements Volley.GetTopCommentsDetail,FragmentCommunicator.FragmentComments {
@@ -34,12 +36,12 @@ public class NewsDetail extends AppCompatActivity implements Volley.GetTopCommen
     private Toolbar toolbar;
     private ViewPager viewPager;
     private TabLayout tabLayout;
-    TextView title,url,time;
+    private TextView title,url,time;
     private static final int SECOND_ACTIVITY_RESULT_CODE=0;
     private SharedPrefManager sharedPreferences;
     private ProgressDialog progressDialog;
-    RealmList<String> stringRealmList;
-    String url_string,descendants;
+    private RealmList<String> stringRealmList;
+    private String url_string,descendants;
     private ArrayList<CommentsModel> commentsModelArrayList;
 
 
@@ -48,10 +50,12 @@ public class NewsDetail extends AppCompatActivity implements Volley.GetTopCommen
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.news_detail);
+
         // initialize views
         init();
+
         if (stringRealmList.size() != 0) {
-            progressDialog = ProgressDialog.show(this, "Please Wait", "Loading Comments");
+            progressDialog = ProgressDialog.show(this, getResources().getString(R.string.loader_title), getResources().getString(R.string.loader_body_news_detail));
             for (String id : stringRealmList) {
                 GetTopStories getTopStories = new GetTopStories(this, id, "");
                 getTopStories.getCommentsDetail();
@@ -104,7 +108,7 @@ public class NewsDetail extends AppCompatActivity implements Volley.GetTopCommen
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
-
+    //Getting List of Comments
     @Override
     public void getTopCommentsDetail(CommentsModel commentsModel, String rtenValue) {
 

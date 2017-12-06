@@ -1,4 +1,4 @@
-package com.example.jeet.urbanpiper.Utils;
+package com.example.jeet.urbanpiper.utils;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
@@ -6,15 +6,17 @@ import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
 
+/*
+Custom Recycler view click listener class
+ */
 
 public class RecyclerItemClickListener implements RecyclerView.OnItemTouchListener {
     private OnItemClickListener mListener;
+    private GestureDetector mGestureDetector;
 
     public interface OnItemClickListener {
         public void onItemClick(View view, int position);
     }
-
-    GestureDetector mGestureDetector;
 
     public RecyclerItemClickListener(Context context, OnItemClickListener listener) {
         mListener = listener;

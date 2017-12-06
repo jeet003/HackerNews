@@ -1,14 +1,16 @@
-package com.example.jeet.urbanpiper.Models;
+package com.example.jeet.urbanpiper.models;
 
 
 /**
  * Created by jeet on 10/30/2017.
+ *
+ * comments dto for storing comments by parsing from the json format
  */
 
 public class CommentsModel {
-    String id;
+    private String id;
 
-    String by,parent,text,time,type;
+    private String by,parent,text,time,type;
 
     public String getId() {
         return id;

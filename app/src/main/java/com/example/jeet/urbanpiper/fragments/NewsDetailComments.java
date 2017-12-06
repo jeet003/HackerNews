@@ -1,4 +1,4 @@
-package com.example.jeet.urbanpiper.Fragments;
+package com.example.jeet.urbanpiper.fragments;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -11,15 +11,17 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.example.jeet.urbanpiper.Adapter.CommentsItemAdapter;
-import com.example.jeet.urbanpiper.Interface.FragmentCommunicator;
-import com.example.jeet.urbanpiper.Models.CommentsModel;
+import com.example.jeet.urbanpiper.adapter.CommentsItemAdapter;
+import com.example.jeet.urbanpiper.interfaces.FragmentCommunicator;
+import com.example.jeet.urbanpiper.models.CommentsModel;
 import com.example.jeet.urbanpiper.R;
 
 import java.util.ArrayList;
 
 /**
  * Created by jeet on 10/29/2017.
+ *
+ * First View Pager fragment for displaying the comments
  */
 
 public class NewsDetailComments extends Fragment{
@@ -27,8 +29,8 @@ public class NewsDetailComments extends Fragment{
     private CommentsItemAdapter commentsItemAdapter;
     private RecyclerView recyclerView;
     private LinearLayoutManager linearLayoutManager;
-    TextView empty;
-    FragmentCommunicator.FragmentComments fragmentComments;
+    private TextView empty;
+    private FragmentCommunicator.FragmentComments fragmentComments;
 
     public NewsDetailComments(){
 
@@ -50,16 +52,20 @@ public class NewsDetailComments extends Fragment{
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+
         empty=(TextView) getActivity().findViewById(R.id.empty_comments);
         fragmentComments=(FragmentCommunicator.FragmentComments)getActivity();
         recyclerView=(RecyclerView) getActivity().findViewById(R.id.comments_list);
+
         ArrayList<CommentsModel> commentsModelsArrayList=fragmentComments.returnComments();
         ArrayList<CommentsModel> commentsModelsArrayList1=new ArrayList<>();
+
         for(CommentsModel commentsModel:commentsModelsArrayList)
         {
             if(!commentsModel.getText().equals(""))
                 commentsModelsArrayList1.add(commentsModel);
         }
+
         if(commentsModelsArrayList1.size()!=0) {
             commentsItemAdapter = new CommentsItemAdapter(commentsModelsArrayList1, getActivity());
             linearLayoutManager = new LinearLayoutManager(getActivity().getApplicationContext());

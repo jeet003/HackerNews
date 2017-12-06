@@ -1,4 +1,4 @@
-package com.example.jeet.urbanpiper.Adapter;
+package com.example.jeet.urbanpiper.adapter;
 
 import android.content.Context;
 import android.graphics.Typeface;
@@ -8,13 +8,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.example.jeet.urbanpiper.Models.NewsItem;
+import com.example.jeet.urbanpiper.models.NewsItem;
 import com.example.jeet.urbanpiper.R;
 
 import io.realm.*;
 
 /**
  * Created by jeet on 10/28/2017.
+ *
+ * Adapter class for the news item
  */
 
 public class NewsItemAdapter extends RealmRecyclerViewAdapter<NewsItem,NewsItemAdapter.MyViewHolder> {
@@ -22,7 +24,7 @@ public class NewsItemAdapter extends RealmRecyclerViewAdapter<NewsItem,NewsItemA
     //private ArrayList<NewsItem> newsItemArrayList;
     private Context context;
     private String name;
-    Typeface typeface;
+    private Typeface typeface;
 
     public NewsItemAdapter(RealmResults<NewsItem> newsItems,String name,Context context)
     {

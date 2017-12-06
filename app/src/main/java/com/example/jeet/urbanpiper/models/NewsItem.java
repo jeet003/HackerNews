@@ -1,9 +1,7 @@
-package com.example.jeet.urbanpiper.Models;
+package com.example.jeet.urbanpiper.models;
 
 import android.os.Parcel;
 import android.os.Parcelable;
-
-import java.util.ArrayList;
 
 import io.realm.RealmList;
 import io.realm.RealmObject;
@@ -11,6 +9,8 @@ import io.realm.annotations.PrimaryKey;
 
 /**
  * Created by jeet on 10/28/2017.
+ *
+ * News item dto for storing news item
  */
 
 public class NewsItem  extends RealmObject implements Parcelable {

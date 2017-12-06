@@ -1,4 +1,4 @@
-package com.example.jeet.urbanpiper.Utils;
+package com.example.jeet.urbanpiper.utils;
 
 import android.content.Context;
 import android.net.ConnectivityManager;

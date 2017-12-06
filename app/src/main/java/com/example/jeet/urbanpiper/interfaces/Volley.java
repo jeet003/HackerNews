@@ -1,9 +1,8 @@
-package com.example.jeet.urbanpiper.Interface;
+package com.example.jeet.urbanpiper.interfaces;
 
-import com.example.jeet.urbanpiper.Models.CommentsModel;
-import com.example.jeet.urbanpiper.Models.NewsItem;
+import com.example.jeet.urbanpiper.models.CommentsModel;
+import com.example.jeet.urbanpiper.models.NewsItem;
 
-import java.lang.ref.SoftReference;
 import java.util.ArrayList;
 
 /**

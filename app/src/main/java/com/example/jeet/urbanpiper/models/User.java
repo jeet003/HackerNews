@@ -1,7 +1,10 @@
-package com.example.jeet.urbanpiper.Models;
+package com.example.jeet.urbanpiper.models;
 
 import java.util.HashMap;
 
+/*
+User dto for saving the user details
+ */
 
 public class User {
 

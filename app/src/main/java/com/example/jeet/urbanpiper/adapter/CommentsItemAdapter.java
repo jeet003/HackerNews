@@ -1,4 +1,4 @@
-package com.example.jeet.urbanpiper.Adapter;
+package com.example.jeet.urbanpiper.adapter;
 
 import android.content.Context;
 import android.os.Build;
@@ -9,13 +9,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.example.jeet.urbanpiper.Models.CommentsModel;
+import com.example.jeet.urbanpiper.models.CommentsModel;
 import com.example.jeet.urbanpiper.R;
 
 import java.util.ArrayList;
 
 /**
  * Created by jeet on 10/28/2017.
+ *
+ * Adapter class for the comments
  */
 
 public class CommentsItemAdapter extends RecyclerView.Adapter<CommentsItemAdapter.MyViewHolder> {

@@ -1,4 +1,4 @@
-package com.example.jeet.urbanpiper.Fragments;
+package com.example.jeet.urbanpiper.fragments;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -10,16 +10,18 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.TextView;
 
-import com.example.jeet.urbanpiper.Interface.FragmentCommunicator;
+import com.example.jeet.urbanpiper.interfaces.FragmentCommunicator;
 import com.example.jeet.urbanpiper.R;
 
 /**
  * Created by jeet on 10/29/2017.
+ *
+ * Second View Pager fragment for displaying the web view
  */
 
 public class NewsDetailWebView extends Fragment{
 
-    FragmentCommunicator.FragmentComments fragmentComments;
+    private FragmentCommunicator.FragmentComments fragmentComments;
 
     public NewsDetailWebView(){
 
@@ -40,6 +42,7 @@ public class NewsDetailWebView extends Fragment{
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+
         fragmentComments=(FragmentCommunicator.FragmentComments) getActivity();
         WebView wv1 = (WebView) getActivity().findViewById(R.id.webview);
         TextView empty=(TextView) getActivity().findViewById(R.id.empty);

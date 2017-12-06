@@ -1,4 +1,4 @@
-package com.example.jeet.urbanpiper.Utils;
+package com.example.jeet.urbanpiper.utils;
 
 import android.content.Context;
 
@@ -7,6 +7,9 @@ import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.Volley;
 
+/*
+Volley Singleton class for network call operation
+ */
 
 public class VolleySingleton {
     private static VolleySingleton instance;

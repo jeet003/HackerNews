@@ -1,4 +1,4 @@
-package com.example.jeet.urbanpiper.Activities;
+package com.example.jeet.urbanpiper.activities;
 
 
 import android.app.ProgressDialog;
@@ -17,10 +17,10 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.example.jeet.urbanpiper.R;
-import com.example.jeet.urbanpiper.Models.User;
-import com.example.jeet.urbanpiper.Utils.Constants;
-import com.example.jeet.urbanpiper.Utils.SharedPrefManager;
-import com.example.jeet.urbanpiper.Utils.Utils;
+import com.example.jeet.urbanpiper.models.User;
+import com.example.jeet.urbanpiper.utils.Constants;
+import com.example.jeet.urbanpiper.utils.SharedPrefManager;
+import com.example.jeet.urbanpiper.utils.Utils;
 import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
 import com.firebase.client.ServerValue;
@@ -43,11 +43,15 @@ import com.google.firebase.auth.GoogleAuthProvider;
 
 import java.util.HashMap;
 
-public class NewsActivity extends AppCompatActivity implements
+/*
+Launcher Activity for Sign in operation
+ */
+
+public class NewsSignInActivity extends AppCompatActivity implements
         View.OnClickListener,
         GoogleApiClient.OnConnectionFailedListener {
 
-    private static final String TAG = NewsActivity.class.getSimpleName();
+    private static final String TAG = NewsSignInActivity.class.getSimpleName();
     private static final int RC_SIGN_IN = 007;
 
     private FirebaseAuth mAuth;
@@ -56,7 +60,7 @@ public class NewsActivity extends AppCompatActivity implements
     private GoogleApiClient mGoogleApiClient;
     private ProgressDialog mProgressDialog;
 
-    public SharedPrefManager sharedPrefManager;
+    private SharedPrefManager sharedPrefManager;
 
     private SignInButton btnSignIn;
     private Button btnProceed;
@@ -64,25 +68,18 @@ public class NewsActivity extends AppCompatActivity implements
     private ImageView imgProfilePic;
     private TextView txtName, txtEmail;
 
-    String personName,email;
+    private String personName,email;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.launcher);
-        Firebase.setAndroidContext(this);
 
-        btnSignIn = (SignInButton) findViewById(R.id.btn_sign_in);
-        btnProceed = (Button) findViewById(R.id.btn_sign_out);
-        llProfileLayout = (LinearLayout) findViewById(R.id.llProfile);
-        imgProfilePic = (ImageView) findViewById(R.id.imgProfilePic);
-        txtName = (TextView) findViewById(R.id.txtName);
-        txtEmail = (TextView) findViewById(R.id.txtEmail);
+        // initialize views
+        init();
 
-
-
-        btnSignIn.setOnClickListener(this);
-        btnProceed.setOnClickListener(this);
+        //set listeners
+        setListeners();
 
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken(getResources().getString(R.string.web_client))
@@ -118,6 +115,21 @@ public class NewsActivity extends AppCompatActivity implements
         btnSignIn.setScopes(gso.getScopeArray());
     }
 
+    void init(){
+        Firebase.setAndroidContext(this);
+        btnSignIn = (SignInButton) findViewById(R.id.btn_sign_in);
+        btnProceed = (Button) findViewById(R.id.btn_sign_out);
+        llProfileLayout = (LinearLayout) findViewById(R.id.llProfile);
+        imgProfilePic = (ImageView) findViewById(R.id.imgProfilePic);
+        txtName = (TextView) findViewById(R.id.txtName);
+        txtEmail = (TextView) findViewById(R.id.txtEmail);
+    }
+
+    void setListeners(){
+        btnSignIn.setOnClickListener(this);
+        btnProceed.setOnClickListener(this);
+    }
+
     private void createUserInFirebaseHelper(){
 
         //Since Firebase does not allow "." in the key name, we'll have to encode and change the "." to ","
@@ -140,7 +152,7 @@ public class NewsActivity extends AppCompatActivity implements
                     User newUser = new User(personName, encodedEmail, timestampJoined);
                     userLocation.setValue(newUser);
 
-                    Toast.makeText(NewsActivity.this, "Account created!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(NewsSignInActivity.this, "Account created!", Toast.LENGTH_SHORT).show();
 
                 }
             }
@@ -153,7 +165,7 @@ public class NewsActivity extends AppCompatActivity implements
                 if (firebaseError.getCode() == FirebaseError.EMAIL_TAKEN){
                 }
                 else {
-                    Toast.makeText(NewsActivity.this, firebaseError.getMessage(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(NewsSignInActivity.this, firebaseError.getMessage(), Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -320,11 +332,11 @@ public class NewsActivity extends AppCompatActivity implements
                         if (!task.isSuccessful()) {
                             Log.w(TAG, "signInWithCredential" + task.getException().getMessage());
                             task.getException().printStackTrace();
-                            Toast.makeText(NewsActivity.this, "Authentication failed.",
+                            Toast.makeText(NewsSignInActivity.this, "Authentication failed.",
                                     Toast.LENGTH_SHORT).show();
                         }else {
                             createUserInFirebaseHelper();
-                            Toast.makeText(NewsActivity.this, "Login successful",
+                            Toast.makeText(NewsSignInActivity.this, "Login successful",
                                     Toast.LENGTH_SHORT).show();
                         }
                         hideProgressDialog();

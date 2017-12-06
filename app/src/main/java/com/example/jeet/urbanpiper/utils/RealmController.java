@@ -1,13 +1,16 @@
-package com.example.jeet.urbanpiper.Utils;
+package com.example.jeet.urbanpiper.utils;
 
 import android.app.Activity;
 import android.app.Application;
 import android.support.v4.app.Fragment;
 
-import com.example.jeet.urbanpiper.Models.NewsItem;
+import com.example.jeet.urbanpiper.models.NewsItem;
 import io.realm.Realm;
 import io.realm.RealmResults;
- 
+
+/*
+Custom Realm Controller class
+ */
  
 public class RealmController {
  

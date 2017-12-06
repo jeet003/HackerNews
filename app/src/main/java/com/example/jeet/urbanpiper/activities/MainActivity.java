@@ -1,4 +1,4 @@
-package com.example.jeet.urbanpiper.Activities;
+package com.example.jeet.urbanpiper.activities;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -14,20 +14,24 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.jeet.urbanpiper.Adapter.NewsItemAdapter;
-import com.example.jeet.urbanpiper.BackgroundServices.GetTopStories;
-import com.example.jeet.urbanpiper.Interface.Volley;
-import com.example.jeet.urbanpiper.Models.NewsItem;
+import com.example.jeet.urbanpiper.adapter.NewsItemAdapter;
+import com.example.jeet.urbanpiper.backgroundServices.GetTopStories;
+import com.example.jeet.urbanpiper.interfaces.Volley;
+import com.example.jeet.urbanpiper.models.NewsItem;
 import com.example.jeet.urbanpiper.R;
-import com.example.jeet.urbanpiper.Utils.RealmController;
-import com.example.jeet.urbanpiper.Utils.RecyclerItemClickListener;
-import com.example.jeet.urbanpiper.Utils.SharedPrefManager;
+import com.example.jeet.urbanpiper.utils.RealmController;
+import com.example.jeet.urbanpiper.utils.RecyclerItemClickListener;
+import com.example.jeet.urbanpiper.utils.SharedPrefManager;
 
 import java.util.ArrayList;
 import java.util.Date;
 
 import io.realm.Realm;
 import io.realm.RealmResults;
+
+/*
+Main Activity where the list of news are displayed
+ */
 
 public class MainActivity extends AppCompatActivity implements Volley.GetTopStoriesInterface,Volley.GetTopStoriesDetail{
 
@@ -36,76 +40,22 @@ public class MainActivity extends AppCompatActivity implements Volley.GetTopStor
     private ArrayList<String> newStories;
     private ArrayList<NewsItem> newsItemArrayList;
     private NewsItemAdapter newsItemAdapter;
-    String name;
-    Toolbar toolbar;
-    TextView toolbar_title;
-    int flag=1;
-    public SharedPrefManager sharedPrefManager;
+    private String name;
+    private Toolbar toolbar;
+    private TextView toolbar_title;
+    private int flag;
+    private SharedPrefManager sharedPrefManager;
     private SwipeRefreshLayout mSwipeRefreshLayout;
     private RecyclerView recyclerView;
-    Realm realm;
+    private Realm realm;
     private LinearLayoutManager linearLayoutManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        sharedPrefManager=new SharedPrefManager(this);
-        realm = RealmController.with(this).getRealm();
         init();
         setUpActionBar();
-
-        if(sharedPrefManager.hasUserData().equals(false)) {
-            flag=1;
-            progressDialog=ProgressDialog.show(this,"Please Wait","Loading News for the first time");
-            GetTopStories getTopStories = new GetTopStories(this);
-            getTopStories.getStoriesId();
-        }else{
-            newsItemAdapter=new NewsItemAdapter(RealmController.with(this).getNews(),name,this);
-            linearLayoutManager=new LinearLayoutManager(getApplicationContext());
-            recyclerView.setLayoutManager(linearLayoutManager);
-            recyclerView.setItemAnimator(new DefaultItemAnimator());
-            recyclerView.setAdapter(newsItemAdapter);
-        }
-
-    }
-    public void setUpActionBar()
-    {
-
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayShowTitleEnabled(false);
-        //getSupportActionBar().setBackgroundDrawable(null);
-        showUpdatedDiff();
-    }
-    public void showUpdatedDiff(){
-        Date date1=new Date();
-        long dateinsta=sharedPrefManager.getDate();
-        if(dateinsta==0)
-            dateinsta=date1.getTime();
-        long diff = date1.getTime() - dateinsta;
-        long diffMinutes = diff / (60 * 1000) % 60;
-        String mint="";
-        if(diffMinutes==0)
-            mint="Updated 0 minutes ";
-        else
-            mint="Updated "+String.valueOf(diffMinutes)+" minutes ";
-
-        String latest= mint+"ago";
-        toolbar_title.setText("Top Stories \n"+latest);
-    }
-
-    void init(){
-        newsItemArrayList=new ArrayList<>();
-        recyclerView=(RecyclerView) findViewById(R.id.recycler_view);
-        mSwipeRefreshLayout=(SwipeRefreshLayout) findViewById(R.id.swipeRefreshLayout);
-        toolbar=(Toolbar) findViewById(R.id.toolbar_newslist);
-        toolbar_title=(TextView) toolbar.findViewById(R.id.toolbar_title);
-        /*
-        mSwipeRefreshLayout.setColorScheme(getResources().getColor(android.R.color.holo_blue_bright),
-                getResources().getColor(android.R.color.holo_green_light),
-                        getResources().getColor(android.R.color.holo_orange_light),
-                                getResources().getColor(android.R.color.holo_red_light));
-                                */
         mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
@@ -127,6 +77,60 @@ public class MainActivity extends AppCompatActivity implements Volley.GetTopStor
         Intent i=getIntent();
         name=i.getStringExtra("NAME");
 
+        if(!sharedPrefManager.hasUserData()) {
+            flag=1;
+            progressDialog=ProgressDialog.show(this,getResources().getString(R.string.loader_title),getResources().getString(R.string.loader_body_main));
+            GetTopStories getTopStories = new GetTopStories(this);
+            getTopStories.getStoriesId();
+        }else{
+            newsItemAdapter=new NewsItemAdapter(RealmController.with(this).getNews(),name,this);
+            linearLayoutManager=new LinearLayoutManager(getApplicationContext());
+            recyclerView.setLayoutManager(linearLayoutManager);
+            recyclerView.setItemAnimator(new DefaultItemAnimator());
+            recyclerView.setAdapter(newsItemAdapter);
+        }
+
+    }
+    public void setUpActionBar()
+    {
+
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
+        //getSupportActionBar().setBackgroundDrawable(null);
+        showUpdatedDiff();
+    }
+    public void showUpdatedDiff(){
+        Date date1=new Date();
+        long date_instant=sharedPrefManager.getDate();
+        if(date_instant==0)
+            date_instant=date1.getTime();
+        long diff = date1.getTime() - date_instant;
+        long diffMinutes = diff / (60 * 1000) % 60;
+        String minutes="";
+        if(diffMinutes==0)
+            minutes="Updated 0 minutes ";
+        else
+            minutes="Updated "+String.valueOf(diffMinutes)+" minutes ";
+
+        String latest= getResources().getString(R.string.toolbar_title_text)+minutes+"ago";
+        toolbar_title.setText(latest);
+    }
+
+    void init(){
+        sharedPrefManager=new SharedPrefManager(this);
+        realm = RealmController.with(this).getRealm();
+        newsItemArrayList=new ArrayList<>();
+        flag=1;
+        recyclerView=(RecyclerView) findViewById(R.id.recycler_view);
+        mSwipeRefreshLayout=(SwipeRefreshLayout) findViewById(R.id.swipeRefreshLayout);
+        toolbar=(Toolbar) findViewById(R.id.toolbar_newslist);
+        toolbar_title=(TextView) toolbar.findViewById(R.id.toolbar_title);
+        /*
+        mSwipeRefreshLayout.setColorScheme(getResources().getColor(android.R.color.holo_blue_bright),
+                getResources().getColor(android.R.color.holo_green_light),
+                        getResources().getColor(android.R.color.holo_orange_light),
+                                getResources().getColor(android.R.color.holo_red_light));
+                                */
     }
 
     public void refresh(){
@@ -139,6 +143,9 @@ public class MainActivity extends AppCompatActivity implements Volley.GetTopStor
 
     }
 
+    /*
+    Getting the top stories list
+     */
     @Override
     public void getTopStories(ArrayList<String> topStories, String rtrnValue) {
 
@@ -173,7 +180,7 @@ public class MainActivity extends AppCompatActivity implements Volley.GetTopStor
                 if(this.newStories.size()==0)
                 {
                     mSwipeRefreshLayout.setRefreshing(false);
-                    Toast.makeText(this, "Story List Up to Date", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, getResources().getString(R.string.uptodate_text), Toast.LENGTH_SHORT).show();
                     showUpdatedDiff();
                 }
                 else {
@@ -193,6 +200,10 @@ public class MainActivity extends AppCompatActivity implements Volley.GetTopStor
 
     }
 
+    /*
+    Getting the story details
+     */
+
     @Override
     public void getTopStoriesDetail(NewsItem newsItem, String rtrnValue) {
 
@@ -203,13 +214,7 @@ public class MainActivity extends AppCompatActivity implements Volley.GetTopStor
             realm.copyToRealm(newsItem);
             realm.commitTransaction();
             sharedPrefManager.setHasUserData(this,true);
-/*
-            Handler handler=new Handler();
-            handler.postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    */
-                    if(newsItemArrayList.size()==topStories.size())
+            if(newsItemArrayList.size()==topStories.size())
             {
                 if(flag==1) {
                     if (progressDialog.isShowing())
@@ -232,13 +237,6 @@ public class MainActivity extends AppCompatActivity implements Volley.GetTopStor
                 sharedPrefManager.saveDate(this,dateinstance.getTime());
                 showUpdatedDiff();
             }
-            /*
-                }
-            },3000);
-            */
-
-
-
         }
         else{
 

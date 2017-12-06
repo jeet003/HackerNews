@@ -1,4 +1,4 @@
-package com.example.jeet.urbanpiper.BackgroundServices;
+package com.example.jeet.urbanpiper.backgroundServices;
 
 import android.content.Context;
 import android.util.Log;
@@ -15,10 +15,10 @@ import com.android.volley.ServerError;
 import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
-import com.example.jeet.urbanpiper.Models.CommentsModel;
-import com.example.jeet.urbanpiper.Models.NewsItem;
-import com.example.jeet.urbanpiper.Utils.VolleySingleton;
-import com.example.jeet.urbanpiper.Interface.Volley;
+import com.example.jeet.urbanpiper.models.CommentsModel;
+import com.example.jeet.urbanpiper.models.NewsItem;
+import com.example.jeet.urbanpiper.utils.VolleySingleton;
+import com.example.jeet.urbanpiper.interfaces.Volley;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -34,6 +34,8 @@ import io.realm.RealmList;
 
 /**
  * Created by jeet on 8/8/17.
+ *
+ * The stories and other details are being fetched using this volley class
  */
 
 public class GetTopStories {
@@ -55,6 +57,7 @@ public class GetTopStories {
             throw new ClassCastException();
         }
     }
+
     public GetTopStories(Context context,String id){
         this.context=context;
         this.id=id;
@@ -67,6 +70,7 @@ public class GetTopStories {
         }
 
     }
+
     public GetTopStories(Context context,String id,String dummy){
         this.context=context;
         this.id=id;
@@ -79,6 +83,8 @@ public class GetTopStories {
         }
 
     }
+
+    //fetches the list of stories
     public void getStoriesId()
     {
         final Map<String,String> params=new HashMap<String, String>();
@@ -163,6 +169,7 @@ public class GetTopStories {
         VolleySingleton.getInstance(context).addToRequestQueue(storyRequest);
     }
 
+    //fetches individual stories
     public void getStoriesDetail()
     {
         final Map<String,String> params=new HashMap<String, String>();
@@ -285,6 +292,7 @@ public class GetTopStories {
         VolleySingleton.getInstance(context).addToRequestQueue(storyRequest);
     }
 
+    //fetches the comments
     public void getCommentsDetail()
     {
         final Map<String,String> params=new HashMap<String, String>();
