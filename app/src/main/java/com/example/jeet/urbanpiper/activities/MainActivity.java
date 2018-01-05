@@ -78,7 +78,12 @@ public class MainActivity extends AppCompatActivity implements Volley.GetTopStor
         name=i.getStringExtra("NAME");
 
         if(!sharedPrefManager.hasUserData()) {
-            flag=1;
+            newsItemAdapter = new NewsItemAdapter(RealmController.with(MainActivity.this).getNews(), name,this);
+            linearLayoutManager = new LinearLayoutManager(getApplicationContext());
+            recyclerView.setLayoutManager(linearLayoutManager);
+            recyclerView.setItemAnimator(new DefaultItemAnimator());
+            recyclerView.setAdapter(newsItemAdapter);
+            flag=0;
             progressDialog=ProgressDialog.show(this,getResources().getString(R.string.loader_title),getResources().getString(R.string.loader_body_main));
             GetTopStories getTopStories = new GetTopStories(this);
             getTopStories.getStoriesId();
@@ -214,6 +219,10 @@ public class MainActivity extends AppCompatActivity implements Volley.GetTopStor
             realm.copyToRealm(newsItem);
             realm.commitTransaction();
             sharedPrefManager.setHasUserData(this,true);
+            if(progressDialog!=null)
+            if (progressDialog.isShowing())
+                progressDialog.dismiss();
+
             if(newsItemArrayList.size()==topStories.size())
             {
                 if(flag==1) {
@@ -239,7 +248,9 @@ public class MainActivity extends AppCompatActivity implements Volley.GetTopStor
             }
         }
         else{
-
+            if(progressDialog!=null)
+                if (progressDialog.isShowing())
+                    progressDialog.dismiss();
         }
     }
 }
